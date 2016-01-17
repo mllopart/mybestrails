@@ -1,0 +1,19 @@
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-14-04
+
+create database mybestrails;
+CREATE USER myBesTrailsDBA WITH PASSWORD 'C#az3Xg8CE@qRD';
+GRANT ALL PRIVILEGES ON DATABASE mybestrails TO myBesTrailsDBA;
+
+sudo apt-get install -y postgis postgresql-9.3-postgis-2.1
+sudo -u postgres psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" mybestrails
+
+sudo apt-get install pgadmin3
+
+sudo -u postgres psql
+ALTER USER postgres PASSWORD 'mll1430';
+
+
+mybestrails superuser
+mllopart - mll14301430
+
+gunicorn --bind 0.0.0.0:8000 mybestrails.wsgi:application
