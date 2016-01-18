@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for mybestrails project.
 
@@ -29,14 +30,18 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+    
 INSTALLED_APPS = [
+    'app.track_management.apps.TrackManagementConfig',
+    'app.user_management.apps.UserManagementConfig',
+    'app.logger_management.apps.LoggerManagementConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tastypie',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -117,6 +122,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+KEEP_LOGGED_DURATION = 30 # in days
 
 
 # Static files (CSS, JavaScript, Images)
