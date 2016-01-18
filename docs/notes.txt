@@ -17,3 +17,8 @@ mybestrails superuser
 mllopart - mll14301430
 
 gunicorn --bind 0.0.0.0:8000 mybestrails.wsgi:application
+
+-- sublime
+https://realpython.com/blog/python/setting-up-sublime-text-3-for-full-stack-python-development/
+
+sudo service gunicorn restart
