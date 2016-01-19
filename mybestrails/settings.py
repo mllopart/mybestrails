@@ -28,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ADMINS = (
+    ('Marc Llopart', 'larsnow@gmail.com'),
+)
+
+MANAGERS = (
+    ('Marc Llopart', 'larsnow@gmail.com'),
+)
+
 
 # Application definition
     
@@ -35,6 +43,7 @@ INSTALLED_APPS = [
     'app.track_management.apps.TrackManagementConfig',
     'app.user_management.apps.UserManagementConfig',
     'app.logger_management.apps.LoggerManagementConfig',
+    'app.general.apps.GeneralConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tastypie',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -60,7 +70,9 @@ ROOT_URLCONF = 'mybestrails.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, "templates/"),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,6 +83,14 @@ TEMPLATES = [
             ],
         },
     },
+             
+    #{
+    #    'BACKEND': 'django.template.backends.jinja2.Jinja2',
+    #    'APP_DIRS': True,
+    #    'DIRS': [
+    #        '/home/html/jinja2',
+    #    ],
+    #},
 ]
 
 WSGI_APPLICATION = 'mybestrails.wsgi.application'
@@ -109,6 +129,26 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#logger
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/home/mllopart/workspace/mybestrailsEnv/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -130,4 +170,6 @@ KEEP_LOGGED_DURATION = 30 # in days
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")

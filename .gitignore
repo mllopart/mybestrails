@@ -1,11 +1,14 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
+*.pyc
+*.pyo
+*org.eclipse*.*
+
 
 # C extensions
 *.so
 
 # Distribution / packaging
+__pycache__
 bin/
 build/
 develop-eggs/
