@@ -24,3 +24,13 @@ CREATE INDEX "auth_user_extended_c3905c37" ON "auth_user_extended" ("activated")
 CREATE INDEX "auth_user_extended_hash_code_267105f9_like" ON "auth_user_extended" ("hash_code" varchar_pattern_ops);
 
 COMMIT;
+
+--- python manage.py sqlmigrate logger_management 0001
+
+CREATE TABLE "action_log" ("id" serial NOT NULL PRIMARY KEY, "action_time" timestamp with time zone NOT NULL, "object_id" integer NOT NULL, "action" varchar(25) NOT NULL, "comments" varchar(255) NULL, "content_type_id" integer NOT NULL, "user_id" integer NOT NULL);
+ALTER TABLE "action_log" ADD CONSTRAINT "action_log_content_type_id_18cfe4fd_fk_django_content_type_id" FOREIGN KEY ("content_type_id") REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE "action_log" ADD CONSTRAINT "action_log_user_id_a30caf32_fk_auth_user_id" FOREIGN KEY ("user_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED;
+CREATE INDEX "action_log_417f1b1c" ON "action_log" ("content_type_id");
+CREATE INDEX "action_log_e8701ad4" ON "action_log" ("user_id");
+
+COMMIT;

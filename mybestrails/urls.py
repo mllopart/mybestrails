@@ -20,7 +20,7 @@ from django.contrib import admin
 urlpatterns = [
 	url(r'^track/', include('app.track_management.urls')),
 	url(r'^user/', include('app.user_management.urls')),
-    url(r'^homepage/', include('app.general.urls')),
+    url(r'^', include('app.general.urls')),
     url(r'^admin/', admin.site.urls),
-        
+    url('', include('social.apps.django_app.urls', namespace='social')),        
 ]

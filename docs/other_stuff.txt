@@ -1,0 +1,65 @@
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-14-04
+
+create database mybestrails;
+CREATE USER myBesTrailsDBA WITH PASSWORD 'C#az3Xg8CE@qRD';
+GRANT ALL PRIVILEGES ON DATABASE mybestrails TO myBesTrailsDBA;
+
+sudo apt-get install -y postgis postgresql-9.3-postgis-2.1
+sudo -u postgres psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" mybestrails
+
+sudo apt-get install pgadmin3
+
+sudo -u postgres psql
+ALTER USER postgres PASSWORD 'mll1430';
+
+
+mybestrails superuser
+mllopart - mll14301430
+
+gunicorn --bind 0.0.0.0:8000 mybestrails.wsgi:application
+
+
+  GNU nano 2.2.6                                                              File: /etc/init/gunicorn.conf                                                                                                                                   
+
+description "Gunicorn application server handling mybestrails"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+setuid mllopart
+setgid www-data
+chdir /home/mllopart/workspace/mybestrailsEnv/mybestrails
+
+
+exec /home/mllopart/workspace/mybestrailsEnv/bin/gunicorn --workers 3 --bind unix:/home/mllopart/workspace/mybestrailsEnv/mybestrails/mybestrails.sock mybestrails.wsgi:application
+
+
+
+sass --watch sass:/css
+
+pip freeze > requirements.txt
+
+  
+  ## Getting Started
+  Anaconda works out of the box but there are multitude of options and features that you can tune and adapt to your own style or needs.
+  
+  * [Autocompletion on dot](http://damnwidget.github.io/anaconda/IDE/#toc_3)
+  * [Powerful IDE](http://damnwidget.github.io/anaconda/IDE/)
+  * [Advanced Configuration](http://damnwidget.github.io/anaconda/anaconda_settings/)
+  * [Run Tests using Anaconda](http://damnwidget.github.io/anaconda/tests_runner/)
+  * [Linting theme customization](http://damnwidget.github.io/anaconda/IDE/#toc_50)
+  * [Using Vagrant Environments](http://damnwidget.github.io/anaconda/vagrant/)
+
+
+
+
+
+
+
+
+
+
+
+
+
