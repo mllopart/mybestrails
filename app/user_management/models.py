@@ -23,7 +23,7 @@ class CustomUser(User):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     birthdate = models.DateField(null=True, blank=True)
     locale = models.CharField(max_length=10, blank=True, null=True, default='en-us')
-    hash_code = models.CharField(max_length=32, default=_createHash, null=True, blank=True, db_index=True)
+    hash_code = models.UUIDField(db_index=True, default=uuid.uuid4, editable=False, null=True, blank=True)	
     deleted = models.BooleanField(default=False, db_index=True)
     activated = models.BooleanField(default=False, db_index=True)
 

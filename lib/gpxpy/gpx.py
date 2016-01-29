@@ -2534,7 +2534,7 @@ class GPX:
 
         self.version = version
         if not self.creator:
-            self.creator = 'gpx.py -- https://github.com/tkrajina/gpxpy'
+            self.creator = 'Unknown'
 
         v = version.replace('.', '/')
         xml_attributes = {

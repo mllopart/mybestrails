@@ -12,6 +12,7 @@ from app.logger_management.models import mdlLog
 import uuid
 import os
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 
 #function that temporarily stores the file at the disk so we can play with it.
@@ -28,8 +29,11 @@ def handle_uploaded_file(f):
 #function to process the GPX file
 #it reads all file properties and store the points in the database 
 def SaveGPXtoPostGIS(fGPX, file_instance):
-
+	
+	#opening the GPX file, loaded by the user
     gpx_file = open(settings.TMP_MEDIA_ROOT+fGPX)
+	
+	#parsing the GPX file
     gpx = gpxpy.parse(gpx_file)
     
     #after loading the file in memory, we can delete the phisical one
@@ -68,6 +72,7 @@ def SaveGPXtoPostGIS(fGPX, file_instance):
 
 
 #view to upload the GPX files.
+@login_required
 def upload_gpx(request):
 
     if request.method == 'POST':        
