@@ -53,8 +53,8 @@ class mdlGPXFile(models.Model):
 
     def __unicode__(self):
         return self.title
-		
-	class Meta:
+
+    class Meta:
         db_table = 'GPX_File'
         verbose_name = 'GPX_File'
         verbose_name_plural = 'GPX_Files'
@@ -69,8 +69,8 @@ class mdlGPXPoint(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
-		
-	class Meta:
+
+    class Meta:
         db_table = 'GPX_Point'
         verbose_name = 'GPX_Point'
         verbose_name_plural = 'GPX_Points'
@@ -79,8 +79,8 @@ class mdlGPXTrack(models.Model):
     track = models.MultiLineStringField()
     gpx_file = models.ForeignKey(mdlGPXFile)
     objects = models.GeoManager()
-	
-	class Meta:
+
+    class Meta:
         db_table = 'GPX_Track'
         verbose_name = 'GPX_Track'
         verbose_name_plural = 'GPX_Tracks'

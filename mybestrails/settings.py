@@ -225,5 +225,4 @@ MEDIA_URL = "http://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 #STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
 #STATIC_URL = '/static/'
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+TMP_MEDIA_ROOT = os.path.join(BASE_DIR, "media_tmp/")

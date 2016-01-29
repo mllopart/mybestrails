@@ -2,14 +2,11 @@
 from app.user_management.forms import login_form
 from app.logger_management.models import mdlLog
 from django.contrib.contenttypes.models import ContentType
-from django.conf import settings
 from django.shortcuts import render
-from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import auth 
 import logging
-from datetime import timedelta
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext_lazy as _
 

@@ -4,15 +4,15 @@ from app.track_management.models import mdlGPXFile
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 
-class UploadGpxForm(forms.ModelForm):
+class UploadGpxForm(forms.Form):
 
-    class Meta:
-        model = mdlGPXFile
-        fields = ['title', 'gpx_file', 'track']
+    gpxfile = forms.FileField(
+        label='Select a file',
+    )
 
     def clean_gpx_file(self):
-        uploaded_file = self.cleaned_data['gpx_file']
-        #print uploaded_file.content_type
+        uploaded_file = self.cleaned_data['gpxfile']
+        print (uploaded_file.content_type)
 
         #content_type = uploaded_file.content_type
         #allowed_content_types = ['text/xml', 'application/octet-stream']
