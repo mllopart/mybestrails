@@ -18,7 +18,7 @@ from django.core.urlresolvers import reverse
 #it creates a totally random file name
 def handle_uploaded_file(f):
     tmp_file_name = str(uuid.uuid4().hex)
-    print(tmp_file_name)
+
     with open(settings.TMP_MEDIA_ROOT+tmp_file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -53,13 +53,14 @@ def SaveGPXtoPostGIS(fGPX, file_instance):
 
             new_track = mdlGPXTrack()
             for segment in track.segments:
+                
                 track_list_of_points = []                
                 for point in segment.points:
                     
                     point_in_segment = Point(point.longitude, point.latitude)
                     track_list_of_points.append(point_in_segment.coords)
 
-                new_track_segment = LineString(track_list_of_points)
+                new_track_segment = LineString(track_list_of_points)               
             
             new_track.track = MultiLineString(new_track_segment)
             new_track.gpx_file = file_instance    
