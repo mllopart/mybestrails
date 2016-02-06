@@ -17,7 +17,10 @@
      	</ul>
     {% endif %}
     {% if request.user.is_authenticated %}
-    	<p><a href="{% url 'user_management:logout' %}"> LOGOUT </a></p>
+    	<ul>
+    		<li><a href="{% url 'user_management:logout' %}"> LOGOUT </a></li>
+    		<li><a href="{% url 'track_management:gpxUpload' %}"> UPLOAD GPX </a></li>
+    	</ul>
     {% endif %}
 
 {% endblock %}
