@@ -27,7 +27,7 @@ class mdlTrack(models.Model):
     type= models.CharField(max_length=3, choices=TRACK_TYPES, blank=True, null=True, help_text=_('Track type.'))
     creation_user = models.ForeignKey(User, db_index=True)
     slug = AutoSlugField(populate_from='name', always_update=False, unique_with='name', null=True, blank=True, db_index=True)
-    hash_code = models.UUIDField(null=True, blank=True,db_index=True, default=uuid.uuid4, editable=False)
+    hash_code = models.UUIDField(default=uuid.uuid4, editable=False,primary_key=True)
     deleted = models.BooleanField(default=False, help_text=_('Is the track deleted?'))
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_timestamp = models.DateTimeField(auto_now=True)
@@ -247,7 +247,7 @@ class mdlGPXRoute(models.Model):
     number = models.DecimalField("GPS route  number.", max_digits = 10,  decimal_places = 2, default = 0 )
     type = models.CharField("Type (classification) of route .", max_length=255,blank=True, null=True)
     extensions = models.TextField("Extensions.", blank=True, null=True)	
-    trackLine= models.MultiLineStringField(blank=True, null=True)
+    trackLine= models.LineStringField(blank=True, null=True)
 #    objects = models.GeoManager()
 
     class Meta:
@@ -314,7 +314,7 @@ class mdlGPXRoutePoint(models.Model):
 
 
 class mdlGPXRoutePointLinks(models.Model):   
-    gpx_track_segment_point = models.ForeignKey(mdlGPXTrackSegmentPoint)
+    gpx_route_point = models.ForeignKey(mdlGPXTrackSegmentPoint)
     link = models.URLField("Links to external information about route.", max_length=255,blank=True, null=True)  
     link_text = models.CharField("Text of the GPX route link.", max_length=255,blank=True, null=True)
     link_type = models.CharField("Mime type of GPX route link", max_length=100,blank=True, null=True)  
