@@ -1,0 +1,1 @@
+web: gunicorn mybestrails.wsgi --log-file -
