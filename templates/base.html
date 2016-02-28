@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load extra_tags %}
 <!DOCTYPE html>
 <html lang="en">
   	<head>
@@ -102,5 +103,8 @@
 
 	    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	    <script src="{% static "js/ie10-viewport-bug-workaround.js" %}"></script>
+
+	    {% autoescape off %}{%googleanalyticsjs request.user%}{% endautoescape %}
+
 	</body>
 </html>

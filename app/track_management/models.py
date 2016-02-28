@@ -48,7 +48,7 @@ class mdlGPXFile(models.Model):
     version = models.CharField("XML Version", max_length=10,blank=True, null=True)
     creator = models.CharField("Creator", max_length=255,blank=True, null=True)
     name = models.CharField("The name of the GPX file.", max_length=255,blank=True, null=True)
-    description = models.CharField("A description of the contents of the GPX file.", max_length=4000,blank=True, null=True)	   
+    description = models.CharField("A description of the contents of the GPX file.", max_length=4000,blank=True, null=True)       
     time = models.DateTimeField("The creation date of the file.",blank=True, null=True)
     keywords = models.TextField("Keywords associated with the file.", blank=True, null=True)    
     bound_min = models.PointField("Minimum coordinates which describe the extent of the coordinates in the file.", blank=True, null=True)
@@ -89,10 +89,10 @@ class mdlGPXTrack(models.Model):
     name = models.CharField("GPS name of track.", max_length=10,blank=True, null=True)
     comment = models.CharField("GPS comment for track.", max_length=4000,blank=True, null=True)
     description = models.CharField("User description of track.", max_length=4000,blank=True, null=True)
-    source = models.CharField("Source of data", max_length=50,blank=True, null=True)	 
+    source = models.CharField("Source of data", max_length=50,blank=True, null=True)     
     number = models.DecimalField("GPS track number.", max_digits = 10,  decimal_places = 2, default = 0)
     type = models.CharField("Type (classification) of track.", max_length=255,blank=True, null=True)
-    extensions = models.TextField("Extensions.", blank=True, null=True)	
+    extensions = models.TextField("Extensions.", blank=True, null=True)    
     trackLine= models.MultiLineStringField(blank=True, null=True)
 #    objects = models.GeoManager()
 
@@ -113,7 +113,7 @@ class mdlGPXTrackLinks(models.Model):
         verbose_name_plural = 'GPX Track Links'
 
 class mdlGPXTrackSegment(models.Model):    
-    gpx_track = models.ForeignKey(mdlGPXTrack)	
+    gpx_track = models.ForeignKey(mdlGPXTrack)    
     extensions = models.TextField("Extensions.", blank=True, null=True)
     segmentLine= models.LineStringField(blank=True, null=True)
 
@@ -243,10 +243,10 @@ class mdlGPXRoute(models.Model):
     name = models.CharField("GPS name of route.", max_length=10,blank=True, null=True)
     comment = models.CharField("GPS comment for route.", max_length=4000,blank=True, null=True)
     description = models.CharField("User description of route.", max_length=4000,blank=True, null=True)
-    source = models.CharField("Source of data", max_length=50,blank=True, null=True)	 
+    source = models.CharField("Source of data", max_length=50,blank=True, null=True)     
     number = models.DecimalField("GPS route  number.", max_digits = 10,  decimal_places = 2, default = 0 )
     type = models.CharField("Type (classification) of route .", max_length=255,blank=True, null=True)
-    extensions = models.TextField("Extensions.", blank=True, null=True)	
+    extensions = models.TextField("Extensions.", blank=True, null=True)    
     trackLine= models.LineStringField(blank=True, null=True)
 #    objects = models.GeoManager()
 

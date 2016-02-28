@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}  
+    {% if tracks %}        
+        <ul>
+        {% for tra in tracks %}
+            <li><a href ="{% url 'track_management:userTrackDetails' tra.hash_code %}">{{tra.name}}</a> ({{tra.type}}) - {{tra.created_timestamp}} - {{tra.hash_code}}</li>
+        {% endfor%}
+        </ul>
+    {% endif %}
+
+{% endblock %}

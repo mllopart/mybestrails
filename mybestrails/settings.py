@@ -37,8 +37,6 @@ MANAGERS = (
     ('Marc Llopart', 'larsnow@gmail.com'),
 )
 
-GOOGLE_ANALYTICS_CODE = 'UA-74107701-1'
-
 
 # Application definition
     
