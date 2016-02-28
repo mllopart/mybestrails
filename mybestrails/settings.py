@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2$$gaofcyir+a9ek&ns&1)33bf=f=^a_1)v68=!r8_z3&yj4$0'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DEBUG', False))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.mybestrails.com']
 
 ADMINS = (
     ('Marc Llopart', 'larsnow@gmail.com'),
@@ -124,23 +124,11 @@ WSGI_APPLICATION = 'mybestrails.wsgi.application'
 #SOCIAL
 LOGIN_REDIRECT_URL = '/'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '1052351271473390'
-SOCIAL_AUTH_FACEBOOK_SECRET = '50e47604b2e60b0a3d1476932f2ef332' 
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ['SOCIAL_AUTH_FACEBOOK_KEY']
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['SOCIAL_AUTH_FACEBOOK_SECRET']
 
 # Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-#        'NAME': 'mybestrails',
-#        'USER': 'mybestrailsdba',
-#        'PASSWORD': 'C#az3Xg8CE@qRD',
-#        'HOST': 'localhost',
-#        'PORT': '',
-#    }
-#}
-
+DATABASES = {}
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
@@ -204,9 +192,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 #AWS settings
-AWS_STORAGE_BUCKET_NAME = 'mybestrails'
-AWS_ACCESS_KEY_ID = 'AKIAJOIXLF3C3PBXI6OQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 #AWS_HEADERS = {
 #    'Expires': 'Thu, 15 Apr 2010 20:00:00 GMT',
@@ -220,8 +208,10 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'lib.custom_storages.StaticStorage'
+#STATICFILES_STORAGE = 'lib.custom_storages.StaticStorage'
 STATIC_URL = "http://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIAFILES_LOCATION = 'media_dev'
 DEFAULT_FILE_STORAGE = 'lib.custom_storages.MediaStorage'
