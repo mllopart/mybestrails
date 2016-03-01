@@ -1,8 +1,69 @@
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
 # Byte-compiled / optimized / DLL files
 *.pyc
 *.pyo
 *org.eclipse*.*
 
+# sftp configuration file
+sftp-config.json
+
+# Basics
+*.py[cod]
+__pycache__
+
+# Logs
+*.log
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+htmlcov
+
+# Translations
+*.mo
+*.pot
+
+# Pycharm
+.idea
+
+# Vim
+
+*~
+*.swp
+*.swo
+
+# npm
+node_modules/
+
+# Compass
+.sass-cache
+
+# virtual environments
+.env
+
+# User-uploaded media
+mybestrails/media/
+
+# Hitch directory
+tests/.hitch
+
+# MailHog binary
+mailhog
 
 # C extensions
 *.so
@@ -22,8 +83,6 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-.env
-*.env
 settings_local.py
 
 # Installer logs
