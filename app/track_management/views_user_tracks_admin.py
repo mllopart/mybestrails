@@ -2,14 +2,15 @@
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import render
+from django.core.exceptions import PermissionDenied
+
 import logging
 
 from app.track_management.models import mdlTrack,mdlGPXFile,mdlGPXTrack,mdlGPXTrackSegment,mdlGPXTrackSegmentPoint
 
 @login_required
 #view that displays all the active tracks of the logged in user 
-def vw_list_user_tracks(request):
-    
+def vw_list_user_tracks(request):    
     try:
         tracks = mdlTrack.objects.filter(creation_user=request.user, deleted=False).order_by('-created_timestamp')
         
@@ -21,6 +22,9 @@ def vw_list_user_tracks(request):
         
     
     return render(request,'user/trackList.html', {'tracks':tracks})
+    
+    # Return a HTTP 403 back to the user
+    #raise PermissionDenied
     
 @login_required
 def vw_view_user_track_detail(request,track_hash):

@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 from django.contrib.gis import admin as geoadmin
+from apps.core.models import TimeStampedModel
+
 import uuid
 
 def _createHash():
@@ -14,7 +16,7 @@ def _createHash():
 def GPX_Folder(instance, filename):
     return "uploaded_gpx_files/%s" % (filename)
 
-class mdlTrack(models.Model):
+class mdlTrack(TimeStampedModel):
     
     TRACK_TYPES = (
         ('gpx', _('GPX')),
@@ -29,8 +31,6 @@ class mdlTrack(models.Model):
     slug = AutoSlugField(populate_from='name', always_update=False, unique_with='name', null=True, blank=True, db_index=True)
     hash_code = models.UUIDField(default=uuid.uuid4, editable=False,primary_key=True)
     deleted = models.BooleanField(default=False, help_text=_('Is the track deleted?'))
-    created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_timestamp = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
@@ -41,7 +41,7 @@ class mdlTrack(models.Model):
         verbose_name_plural = 'Tracks'
         ordering = ('name',)
         
-class mdlGPXFile(models.Model):
+class mdlGPXFile(TimeStampedModel):
     track = models.ForeignKey(mdlTrack, db_index=True)
     title = models.CharField("Title", max_length=4000,blank=True, null=True)
     gpx_file = models.FileField(upload_to=GPX_Folder, blank=True, null=True)
@@ -72,7 +72,7 @@ class mdlGPXFile(models.Model):
         verbose_name_plural = 'GPX Files'
 
 
-class mdlGPXFileLinks(models.Model):   
+class mdlGPXFileLinks(TimeStampedModel):   
     gpx_file = models.ForeignKey(mdlGPXFile)
     link = models.URLField("URLs associated with the location described in the file.", max_length=255,blank=True, null=True)  
     link_text = models.CharField("Text of the GPX location link.", max_length=255,blank=True, null=True)
@@ -84,7 +84,7 @@ class mdlGPXFileLinks(models.Model):
         verbose_name_plural = 'GPX File Links'
 
 
-class mdlGPXTrack(models.Model):    
+class mdlGPXTrack(TimeStampedModel):    
     gpx_file = models.ForeignKey(mdlGPXFile)
     name = models.CharField("GPS name of track.", max_length=10,blank=True, null=True)
     comment = models.CharField("GPS comment for track.", max_length=4000,blank=True, null=True)
@@ -101,7 +101,7 @@ class mdlGPXTrack(models.Model):
         verbose_name = 'GPX Track'
         verbose_name_plural = 'GPX Tracks'
 
-class mdlGPXTrackLinks(models.Model):   
+class mdlGPXTrackLinks(TimeStampedModel):   
     gpx_track = models.ForeignKey(mdlGPXTrack)
     link = models.URLField("Links to external information about track.", max_length=255,blank=True, null=True)  
     link_text = models.CharField("Text of the GPX track link.", max_length=255,blank=True, null=True)
@@ -112,7 +112,7 @@ class mdlGPXTrackLinks(models.Model):
         verbose_name = 'GPX Track Link'
         verbose_name_plural = 'GPX Track Links'
 
-class mdlGPXTrackSegment(models.Model):    
+class mdlGPXTrackSegment(TimeStampedModel):    
     gpx_track = models.ForeignKey(mdlGPXTrack)    
     extensions = models.TextField("Extensions.", blank=True, null=True)
     segmentLine= models.LineStringField(blank=True, null=True)
@@ -123,7 +123,7 @@ class mdlGPXTrackSegment(models.Model):
         verbose_name_plural = 'GPX Track Segments'
 
 
-class mdlGPXTrackSegmentPoint(models.Model):
+class mdlGPXTrackSegmentPoint(TimeStampedModel):
 
     GPS_FIX = (
         ('none', 'none'),
@@ -169,7 +169,7 @@ class mdlGPXTrackSegmentPoint(models.Model):
         verbose_name_plural = 'GPX Track Segment Points'
 
 
-class mdlGPXTrackSegmentPointLinks(models.Model):   
+class mdlGPXTrackSegmentPointLinks(TimeStampedModel):   
     gpx_track_segment_point = models.ForeignKey(mdlGPXTrackSegmentPoint)
     link = models.URLField("Links to external information about track.", max_length=255,blank=True, null=True)  
     link_text = models.CharField("Text of the GPX track link.", max_length=255,blank=True, null=True)
@@ -180,7 +180,7 @@ class mdlGPXTrackSegmentPointLinks(models.Model):
         verbose_name = 'GPX Track Segment Point Link'
         verbose_name_plural = 'GPX Track Segment Point Links'
 
-class mdlGPXWaypoint(models.Model):
+class mdlGPXWaypoint(TimeStampedModel):
     
     GPS_FIX = (
         ('none', 'none'),
@@ -226,7 +226,7 @@ class mdlGPXWaypoint(models.Model):
         verbose_name_plural = 'GPX Waypoints'
 
 
-class mdlGPXWaypointLinks(models.Model):   
+class mdlGPXWaypointLinks(TimeStampedModel):   
     gpx_waypoint = models.ForeignKey(mdlGPXWaypoint)   
     link = models.URLField("Links to external information about Waypoint.", max_length=255,blank=True, null=True)  
     link_text = models.CharField("Text of the GPX Waypoint link.", max_length=255,blank=True, null=True)
@@ -238,7 +238,7 @@ class mdlGPXWaypointLinks(models.Model):
         verbose_name_plural = 'GPX Waypoint Links'
 
 
-class mdlGPXRoute(models.Model):    
+class mdlGPXRoute(TimeStampedModel):    
     gpx_file = models.ForeignKey(mdlGPXFile)
     name = models.CharField("GPS name of route.", max_length=10,blank=True, null=True)
     comment = models.CharField("GPS comment for route.", max_length=4000,blank=True, null=True)
@@ -255,7 +255,7 @@ class mdlGPXRoute(models.Model):
         verbose_name = 'GPX Route'
         verbose_name_plural = 'GPX Routes'
 
-class mdlGPXRouteLinks(models.Model):   
+class mdlGPXRouteLinks(TimeStampedModel):   
     gpx_route = models.ForeignKey(mdlGPXRoute)
     link = models.URLField("Links to external information about route.", max_length=255,blank=True, null=True)  
     link_text = models.CharField("Text of the GPX route link.", max_length=255,blank=True, null=True)
@@ -267,7 +267,7 @@ class mdlGPXRouteLinks(models.Model):
         verbose_name_plural = 'GPX Route Links'
 
 
-class mdlGPXRoutePoint(models.Model):
+class mdlGPXRoutePoint(TimeStampedModel):
     
     GPS_FIX = (
         ('none', 'none'),
@@ -313,7 +313,7 @@ class mdlGPXRoutePoint(models.Model):
         verbose_name_plural = 'GPX Route Points'
 
 
-class mdlGPXRoutePointLinks(models.Model):   
+class mdlGPXRoutePointLinks(TimeStampedModel):   
     gpx_route_point = models.ForeignKey(mdlGPXTrackSegmentPoint)
     link = models.URLField("Links to external information about route.", max_length=255,blank=True, null=True)  
     link_text = models.CharField("Text of the GPX route link.", max_length=255,blank=True, null=True)
